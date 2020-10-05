@@ -25,7 +25,7 @@ public class mainGame {
         // Pick game mode
         gui = new GUI();
         dictionary = getDictionary();
-
+        System.out.println("hello");
         gameLoop();
     }
     public static Player getPlayer(){
@@ -69,19 +69,20 @@ public class mainGame {
     Get the dictionary from the supplied text file. Should be placed in the same directory as main. 
     */
     public static ArrayList<String> getDictionary (){
-        ArrayList<String> dictionary = new ArrayList<String>();
+        ArrayList<String> dict = new ArrayList<String>();
 
         try {
-            FileReader fileReader = new FileReader("CollinsScrabbleWords2019.txt");
+            FileReader fileReader = new FileReader("Dictionary.txt");
+            System.out.println("reading");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = null;
             while ((line = bufferedReader.readLine()) != null) {
-                dictionary.add(line);
+                dict.add(line);
             }
             bufferedReader.close();           
         } catch (IOException e) {}
-
-        return dictionary;
+        System.out.println(dict);
+        return dict;
     }
 
 }

@@ -35,12 +35,19 @@ public class StandardBoggle implements IGameInterface {
 
     public void boggle(Player player) {
         // server.sendMessage("test to playerID: "+ player.playerID);
-
+        boolean run = true;
+        String clientInput;
+        String check;
         // Send grid to client
         try {
-            server.sendMessage(currentBoggle, player);
-            server.readMessage(player);
-            server.readMessage(player);
+            while(run){
+                server.sendMessage(currentBoggle, player);
+                clientInput = server.readMessage(player);
+                check = checkWord(currentBoggle, clientInput);
+                System.out.println(check + "::::" + clientInput);
+            }
+
+            
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -54,6 +61,7 @@ public class StandardBoggle implements IGameInterface {
         
     }
     public String checkWord(String[][] boggle, String word) {
+        System.out.print("Dictionary: " + mainGame.dictionary);
         word = word.toUpperCase();
         foundInBoggleBoard = false;
         boolean validWord = false;
