@@ -81,7 +81,6 @@ public class mainGame {
             }
             bufferedReader.close();           
         } catch (IOException e) {}
-        System.out.println(dict);
         return dict;
     }
 

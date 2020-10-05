@@ -61,7 +61,6 @@ public class StandardBoggle implements IGameInterface {
         
     }
     public String checkWord(String[][] boggle, String word) {
-        System.out.print("Dictionary: " + mainGame.dictionary);
         word = word.toUpperCase();
         foundInBoggleBoard = false;
         boolean validWord = false;
