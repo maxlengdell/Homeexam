@@ -1,4 +1,5 @@
 package Homeexam;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -15,8 +16,7 @@ public class Client {
             socket = new Socket(ipAddress, 2048);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
-            readMessage();
-            readMessage();
+            sendMessage("connected");
             clientLoop();
 
         } catch (Exception e) {
@@ -24,21 +24,22 @@ public class Client {
             // threadpool.shutdownNow();
         }
     }
-//Returns server response except for current grid which is printed direcly. 
+
+    // Returns server response except for current grid which is printed direcly.
     public String readMessage() throws IOException {
         Object str = null;
         try {
-            
             str = (Object) in.readObject();
-            System.out.println("Client received: " + str);
-            if(str instanceof String[][]){
-                //Grid received
-                String[][] grid = (String[][])str;
+            if (str instanceof String[][]) {
+                // Grid received
+                String[][] grid = (String[][]) str;
                 printGrid(grid);
                 return null;
-            }else{
+            } else {
+                System.out.println("Client received: " + (String) str);
                 return (String) str;
             }
+
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println("Client readMessage error" + e);
@@ -56,23 +57,26 @@ public class Client {
     }
 
     public void clientLoop() throws IOException {
-        String serverOutput = readMessage();
-        if(serverOutput == "CLOSE SOCKET"){//Close socket
-            System.out.println("Socket closing");
-            socket.close();
-        }else{
-            printInfo(serverOutput);
-
-            String input = textInput.nextLine();
-            System.out.println("Text input: " + input);
-            sendMessage(input);
-            clientLoop();
+        String serverOutput;
+        while((serverOutput = (String) readMessage()) != null){
+            if (serverOutput == "CLOSE SOCKET") {// Close socket
+                System.out.println("Socket closing");
+                socket.close();
+            } else {
+                printInfo(serverOutput);
+            }
         }
+        String wordInput = textInput.nextLine();
+        System.out.println("User input: " + wordInput);
+        sendMessage(wordInput);
+        clientLoop();
     }
-    public void printInfo(String str){
+
+    public void printInfo(String str) {
         System.out.println(str);
     }
-    public void printGrid(String [][] currentBoggle) {
+
+    public void printGrid(String[][] currentBoggle) {
         String returnMsg = "";
         for (String[] row : currentBoggle) {
             for (String column : row) {

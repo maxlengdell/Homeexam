@@ -33,13 +33,20 @@ public class StandardBoggle implements IGameInterface {
         System.out.println("M: " + M + "N: " + N);
     }
 
-    public void boggle(Player player) throws IOException {
-        //server.sendMessage("test to playerID: "+ player.playerID);
-        
+    public void boggle(Player player) {
+        // server.sendMessage("test to playerID: "+ player.playerID);
 
-            // Send grid to client
-            server.sendMessage(currentBoggle,player);
-            
+        // Send grid to client
+        try {
+            server.sendMessage(currentBoggle, player);
+            server.readMessage(player);
+            server.readMessage(player);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
             /*String textInput = player.readMessage();
             System.out.println("player word:" + textInput);
             String check = checkWord(currentBoggle, textInput);

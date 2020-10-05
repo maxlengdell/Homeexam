@@ -38,7 +38,6 @@ public class Server {
             for(int i = 0; i< numberOfPlayers; i++){
                 System.out.println("waiting for client");
                 clientSocket = server.accept();
-
                 ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
                 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
                 players.add(new Player(i, clientSocket, in, out));
@@ -61,10 +60,10 @@ public class Server {
         }
 
     }
-    public String readMessage() throws IOException {
+    public String readMessage(Player player) throws IOException {
         try {
-            String str = (String) this.in.readObject();
-            System.out.println("Message=" + str);
+            String str = (String) player.inFromClient.readObject();
+            System.out.println("Message received = " + str);
             return str;
         } catch (Exception e) {
             //TODO: handle exception

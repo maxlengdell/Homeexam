@@ -2,14 +2,12 @@ package Homeexam;
 
 import java.io.*;
 import java.util.*;
-
-
+import java.util.concurrent.*;
 
 public class mainGame {
 
     public static Server server;
     public static ArrayList<String> dictionary;
-    //public ArrayList<Player> players = new ArrayList<Player>();
     public static String boardsize;
     public static boolean generousBoggle = false;
     public static String language;
@@ -19,34 +17,44 @@ public class mainGame {
     public static boolean run = true;
     public static GUI gui;
     public static StandardBoggle standardBoggle;
-    //public static Player player = new Player(1, null, null, null);
 
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         boardsize = "4x4";
         language = "Eng";
 
-        //Pick game mode
+        // Pick game mode
         gui = new GUI();
         dictionary = getDictionary();
 
         gameLoop();
     }
-    public static void gameLoop() throws IOException {
-            gui.Menu();
-            String mode = gui.selectedMode;
-            //Create server:
-            server = new Server(2048, 2);
-            server.start();
-            if(mode.equals("Standard")){
-                //Enter standard game
-                System.out.println("**********Starting game**********");
-                standardBoggle = new StandardBoggle(boardsize, server);
+    public static Player getPlayer(){
+        return server.players.get(0);
+    }
 
-                for(int i = 0; i < server.numberOfPlayers; i++){
-                    server.sendMessage(("test: " + i), server.players.get(i));
-                    standardBoggle.boggle(server.players.get(i));
-                }
+    public static void gameLoop() throws IOException, InterruptedException {
+        gui.Menu();
+        String mode = GUI.selectedMode;
+        // Create server:
+        server = new Server(2048, 2);
+        server.start();
+        if (mode.equals("Standard")) {
+            // Enter standard game
+            System.out.println("**********Starting game**********");
+            standardBoggle = new StandardBoggle(boardsize, server);
+            ExecutorService threadpool = Executors.newFixedThreadPool(server.players.size());
+            for (int i = 0; i < server.numberOfPlayers; i++) {
+                Player player = server.players.get(i);
+                Runnable task = new Runnable() {
+                    @Override
+                    public void run() {
+                        standardBoggle.boggle(player);
+                        
+                        }
+                    };
+                    threadpool.execute(task);
+                }threadpool.awaitTermination(50, TimeUnit.SECONDS);
+                threadpool.shutdownNow();
             }
             else if(mode.equals("Battle")){
                 //Enter battle
