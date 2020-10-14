@@ -1,5 +1,5 @@
 
-package Homeexam;
+package Homeexam.Player;
 public interface IPlayerInterface {
     public void sendMessage(Object message);
 

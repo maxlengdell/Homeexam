@@ -1,4 +1,9 @@
-package Homeexam;
+package Homeexam.gameModules;
+
+import Homeexam.networking.*;
+import Homeexam.gameModules.*;
+import Homeexam.*;
+import Homeexam.Player.*;
 public interface IGameInterface {
 
     public String[][] boggle16 = { { "R", "I", "F", "O", "B", "X" }, { "I", "F", "E", "H", "E", "Y" },
@@ -28,8 +33,6 @@ public interface IGameInterface {
 
     //public Static String findWordOnGrid(String[][] boggle, boolean visited[][], int i, int j, String str);
 
-    public String[][] randomBoggle(String[][] boggleDie);
 
-    // public void containsWord(ArrayList<String> grid, String word);
-
+    public String checkWord(String[][] boggle, String word, Player player, Boolean generousBoggle);
 }

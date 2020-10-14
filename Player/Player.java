@@ -1,12 +1,11 @@
-package Homeexam;
+package Homeexam.Player;
+
+import Homeexam.Main.mainGame;
+import Homeexam.networking.*;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-import javax.script.*;
 
 public class Player {
     public int playerID;
@@ -16,6 +15,7 @@ public class Player {
     public Server server = mainGame.server;
     public ObjectInputStream inFromClient;
     public ObjectOutputStream outToClient;
+    public int score;
 
     public Player(int playerID, Socket connection, ObjectInputStream inFromClient, ObjectOutputStream outToClient) {
         this.playerID = playerID;
@@ -36,8 +36,20 @@ public class Player {
     }
 
     public int calculateScore() {
-        // TODO Auto-generated method stub
-        return 0;
+        score = 0;
+        for(String word : writtenWords) {
+            if(word.length() == 3 || word.length() == 4)
+                score += 1;
+            if(word.length() == 5)
+                score +=2;
+            if(word.length() == 6)
+                score += 3;
+            if(word.length() == 7)
+                score += 5;
+            if(word.length()> 7)
+                score += 11;
+        }
+        return score;
     }
 
 }
