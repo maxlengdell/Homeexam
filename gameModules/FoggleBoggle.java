@@ -54,30 +54,43 @@ public class FoggleBoggle extends StandardBoggle {
         }
     }
     @Override
+    protected boolean checkWordExistInWritten(String word, Player player) {
+        //Check if current expression is written
+
+        return player.writtenWords.contains(word);
+    }
+    @Override
     public String checkWord(String[][] boggle, String word, Player player, Boolean generousBoggle) {
         foundInBoggleBoard = false;
-
-        if (checkWordinDict(word) & !checkWordExistInWritten(word, player)) {
-            // The word exists in the dictionary, check if it exists on the board
-            word = word.replaceAll("QU", "Q"); // Treat as one character in word due to Boggle dice
-            word = word.replaceAll("[^a-zA-Z0-9]", ""); // For Foggle - just keep numbers
-            boolean[][] visited = new boolean[boggle.length][boggle.length];
-            boolean found = false;
-            for (int i = 0; i < boggle.length; i++) {
-                for (boolean[] vrow : visited) {
-                    Arrays.fill(vrow, false);
-                }
-                for (int j = 0; j < boggle.length; j++) {
-                    if (boggle[i][j].startsWith(word.substring(0, 1))) {
-                        // Check if the word exists on the Boggle board
-                        // Start with matching positions on the boggle board
-                        found = search(generousBoggle, boggle, word, i, j, 1, visited);
+        Boolean validWord;
+        String[] expressions = word.split("=");
+        try {
+            validWord = (engine.eval(expressions[0])) == (engine.eval(expressions[1]));
+            if (validWord && !checkWordExistInWritten(word, player)) {
+                // The word exists in the dictionary, check if it exists on the board
+                word = word.replaceAll("[^0-9]", ""); // For Foggle - just keep numbers
+                boolean[][] visited = new boolean[boggle.length][boggle.length];
+                boolean found = false;
+                for (int i = 0; i < boggle.length; i++) {
+                    for (boolean[] vrow : visited) {
+                        Arrays.fill(vrow, false);
+                    }
+                    
+                    for (int j = 0; j < boggle.length; j++) {
+                        if (boggle[i][j].startsWith(word.substring(0, 1))) {
+                            // Check if the word exists on the Boggle board
+                            // Start with matching positions on the boggle board
+                            found = search(generousBoggle, boggle, word, i, j, 1, visited);
+                        }
                     }
                 }
+                return (found ? "OK" : "NOT OK");
+            } else {
+                return "Not in the dictionary";
             }
-            return (found ? "OK" : "NOT OK");
-        } else {
-            return "Not in the dictionary";
+        } catch (Exception e) {
+            return null;
         }
+        
     }
 }

@@ -8,8 +8,13 @@ import java.io.*;
 import java.util.*;
 import javax.script.*;
 
+/**
+ * Procedure to create new boggle variant. Create a new class that extends
+ * StandardBoggle. Override the methods that do not do what you want. Add it to
+ * the menu.xml, and add it as a alternative in the menu.
+ * 
+ */
 public class StandardBoggle implements IBoggleVariant {
-    // Clear board;
     String[][] currentBoggle = randomBoggle(boggle16);
     public ScriptEngineManager mgr = new ScriptEngineManager();
     public ScriptEngine engine = mgr.getEngineByName("JavaScript");
@@ -27,9 +32,6 @@ public class StandardBoggle implements IBoggleVariant {
             currentBoggle = randomBoggle(boggle16);
         if (boardsize.equalsIgnoreCase("5x5"))
             currentBoggle = randomBoggle(boggle25);
-        M = currentBoggle.length;
-        N = currentBoggle[0].length;
-        System.out.println("M: " + M + "N: " + N);
     }
 
     public void boggle(Player player) {
@@ -39,39 +41,42 @@ public class StandardBoggle implements IBoggleVariant {
         String check;
         try {
             while (!player.connection.isClosed()) {
-                //if(mainGame.run){
-                    server.sendMessage(currentBoggle, player);
-                    clientInput = server.readMessage(player);
-                    System.out.println("Client input: " + clientInput);
-                    if(clientInput!= ""){
-                        check = checkWord(currentBoggle, clientInput, player, generousBoggle);
-                        System.out.println("Check output: " + check);
-                        if (check == "OK") {
-                            // Calculate score
-                            server.sendMessage("Word ok", player);
-                            player.writtenWords.add(clientInput);
-                            System.out.println(clientInput + " APPROVED");
-                        } else {
-                            server.sendMessage("Word does not exist", player);
-                        }
+                server.sendMessage(currentBoggle, player);
+                clientInput = server.readMessage(player);
+                System.out.println("Client input: " + clientInput);
+                if (clientInput != "") {
+                    check = checkWord(currentBoggle, clientInput, player, generousBoggle);
+                    System.out.println("Check output: " + check);
+                    if (check == "OK") {
+                        // Calculate score
+                        server.sendMessage("Word ok", player);
+                        player.writtenWords.add(clientInput);
+                        System.out.println(clientInput + " APPROVED");
+                    } else {
+                        server.sendMessage("Word does not exist", player);
                     }
-                //}
+                }
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
-    protected boolean checkWordinDict(String word){
+
+    protected boolean checkWordinDict(String word) {
         if (mainGame.dictionary.contains(word))
             return true;
-        else return false;
+        else
+            return false;
     }
-    protected boolean checkWordExistInWritten(String word, Player player){
-        if(player.writtenWords.contains(word)){
+
+    protected boolean checkWordExistInWritten(String word, Player player) {
+        if (player.writtenWords.contains(word)) {
             return true;
-        }else return false;
+        } else
+            return false;
     }
+
     public String checkWord(String[][] boggle, String word, Player player, Boolean generousBoggle) {
         // TODO: Check if word has already been written:
         foundInBoggleBoard = false;
@@ -100,10 +105,11 @@ public class StandardBoggle implements IBoggleVariant {
         }
     }
 
-    protected boolean search(Boolean generousBoggle, String[][] boggle, String word, int i, int j, int matches, boolean[][] visited) {
+    protected boolean search(Boolean generousBoggle, String[][] boggle, String word, int i, int j, int matches,
+            boolean[][] visited) {
         int[] dirx = { -1, 0, 0, 1, -1, 1, 1, -1 }; // 8 directions including diagonals
         int[] diry = { 0, -1, 1, 0, -1, -1, 1, 1 };
-        if(!generousBoggle){
+        if (!generousBoggle) {
             visited[i][j] = true;
         }
         int size = boggle.length;
@@ -122,7 +128,8 @@ public class StandardBoggle implements IBoggleVariant {
         }
         return false; // The word was not found on the boggle board
     }
-//Helper function for testing. Printing grid on server.
+
+    // Helper function for testing. Printing grid on server.
     protected void printGrid(String[][] currentBoggle) {
         String returnMsg = "";
         for (String[] row : currentBoggle) {
