@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.*;
 import javax.script.*;
 
-public class StandardBoggle implements IGameInterface {
+public class StandardBoggle implements IBoggleVariant {
     // Clear board;
     String[][] currentBoggle = randomBoggle(boggle16);
     public ScriptEngineManager mgr = new ScriptEngineManager();

@@ -46,18 +46,35 @@ public class mainGame {
         }
     }
     public static void gameLoop() throws IOException, InterruptedException {
+        BoggleFactory factory = new BoggleFactory();
         gui.Menu();
         String mode = gui.getSelectedMode();
         Boolean generousBoggle = gui.getGenetousBoggle();
-        String boardsize = gui.getBoardSize();
+        String boardSize = gui.getBoardSize();
         int gameTime = gui.getGameTime();
         int numberOfPlayers = gui.getNumberOfPlayers();
         run = true;
         System.out.println(mode);
         createServer(numberOfPlayers);
+        IBoggleVariant game = factory.getGame(mode, boardSize, server, generousBoggle);
+        ExecutorService threadpool = Executors.newFixedThreadPool(server.players.size());
+        for (int i = 0; i < server.numberOfPlayers; i++) {
+            Player player = server.players.get(i);
+            Runnable task = new Runnable() {
+                @Override
+                public void run() {
+                    game.boggle(player);
+                }
+            };
+            threadpool.execute(task);
+        }
+        threadpool.awaitTermination(gameTime, TimeUnit.SECONDS);
+        threadpool.shutdownNow();
+        /*
         if (mode.equals("Standard")) {
             // Enter standard game
-            StandardBoggle standardBoggle = new StandardBoggle(boardsize, server, generousBoggle); //Generous boggle??
+
+            StandardBoggle standardBoggle = new StandardBoggle(boardSize, server, generousBoggle); //Generous boggle??
 
             ExecutorService threadpool = Executors.newFixedThreadPool(server.players.size());
             for (int i = 0; i < server.numberOfPlayers; i++) {
@@ -74,7 +91,7 @@ public class mainGame {
             threadpool.shutdownNow();
         } else if (mode.equals("Battle")) {
             // Enter battle
-            BattleBoggle BattleBoggle = new BattleBoggle(boardsize, server, generousBoggle);
+            BattleBoggle BattleBoggle = new BattleBoggle(boardSize, server, generousBoggle);
             
             ExecutorService threadpool = Executors.newFixedThreadPool(server.players.size());
             for (int i = 0; i < server.numberOfPlayers; i++) {
@@ -92,7 +109,7 @@ public class mainGame {
         } else {
             // Enter foggle
             // Enter standard game
-            FoggleBoggle foggleBoggle = new FoggleBoggle(boardsize, server, generousBoggle); //Generous boggle??
+            FoggleBoggle foggleBoggle = new FoggleBoggle(boardSize, server, generousBoggle); //Generous boggle??
 
             ExecutorService threadpool = Executors.newFixedThreadPool(server.players.size());
             for (int i = 0; i < server.numberOfPlayers; i++) {
@@ -107,7 +124,7 @@ public class mainGame {
             }
             threadpool.awaitTermination(gameTime, TimeUnit.SECONDS);
             threadpool.shutdownNow();
-        }
+        }*/
         run = false;
         sendGameOver();
         calculateScoreHelper();
