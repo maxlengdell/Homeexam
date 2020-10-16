@@ -141,7 +141,7 @@ public class mainGame {
         ArrayList<String> dict = new ArrayList<String>();
 
         try {
-            FileReader fileReader = new FileReader("Dictionary.txt");
+            FileReader fileReader = new FileReader("Homeexam/Dictionary.txt");
             System.out.println("reading");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = null;
