@@ -31,8 +31,7 @@ public class BattleBoggle extends StandardBoggle{
         String clientInput;
         String check;
         try {
-            while (mainGame.run) {
-                if(mainGame.run){
+            while (!player.connection.isClosed()) {
                     server.sendMessage(currentBoggle, player);
                     clientInput = server.readMessage(player);
                     check = checkWord(currentBoggle, clientInput, player, generousBoggle);
@@ -48,7 +47,7 @@ public class BattleBoggle extends StandardBoggle{
                     } else {
                         server.sendMessage("Word does not exist", player);
                     }
-                }
+                
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block

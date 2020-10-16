@@ -18,13 +18,14 @@ public class BoggleFactory {
 
     public IBoggleVariant getGame(String gameMode, String boardSize, Server server, Boolean generousBoggle ){
         if(gameMode.equals("Standard")){
-            return getStandardBoggle(boardSize, server, generousBoggle);
+            return new StandardBoggle(boardSize, server, generousBoggle); //Generous boggle??
         }else if(gameMode.equals("Battle")){
-            return getBattleBoggle(boardSize, server, generousBoggle);
+            return new BattleBoggle(boardSize, server, generousBoggle);
         }else{
-            return getFoggleBoggle(boardSize, server, generousBoggle);
+            return new FoggleBoggle(boardSize, server, generousBoggle); //Generous boggle??
         }
     }
+    /*
     private StandardBoggle getStandardBoggle(String boardSize, Server server, Boolean generousBoggle){
         return new StandardBoggle(boardSize, server, generousBoggle); //Generous boggle??
 
@@ -36,5 +37,5 @@ public class BoggleFactory {
     private FoggleBoggle getFoggleBoggle(String boardSize, Server server, Boolean generousBoggle){
         return new FoggleBoggle(boardSize, server, generousBoggle); //Generous boggle??
 
-    }
+    }*/
 }

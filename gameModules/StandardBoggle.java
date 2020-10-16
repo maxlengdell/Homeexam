@@ -42,9 +42,10 @@ public class StandardBoggle implements IBoggleVariant {
                 //if(mainGame.run){
                     server.sendMessage(currentBoggle, player);
                     clientInput = server.readMessage(player);
+                    System.out.println("Client input: " + clientInput);
                     if(clientInput!= ""){
                         check = checkWord(currentBoggle, clientInput, player, generousBoggle);
-                        //System.out.println("Check output: " + check);
+                        System.out.println("Check output: " + check);
                         if (check == "OK") {
                             // Calculate score
                             server.sendMessage("Word ok", player);
@@ -67,7 +68,6 @@ public class StandardBoggle implements IBoggleVariant {
         else return false;
     }
     protected boolean checkWordExistInWritten(String word, Player player){
-        //System.out.println("Written words: " + player.writtenWords);
         if(player.writtenWords.contains(word)){
             return true;
         }else return false;
@@ -76,7 +76,7 @@ public class StandardBoggle implements IBoggleVariant {
         // TODO: Check if word has already been written:
         foundInBoggleBoard = false;
 
-        if (checkWordinDict(word) & !checkWordExistInWritten(word, player)) {
+        if (checkWordinDict(word) && !checkWordExistInWritten(word, player)) {
             // The word exists in the dictionary, check if it exists on the board
             word = word.replaceAll("QU", "Q"); // Treat as one character in word due to Boggle dice
             word = word.replaceAll("[^a-zA-Z0-9]", ""); // For Foggle - just keep numbers

@@ -21,15 +21,19 @@ public class FoggleBoggle extends StandardBoggle {
         // Creates a grid in the constructor depending on the size.
         if (boardsize.equalsIgnoreCase("4x4"))
             currentBoggle = randomBoggle(foggle16);
+        else{
+            System.out.println("boardSize not supported. Please change to 4x4");
+        }
     }
+    @Override
     public void boggle(Player player) {
         System.out.println("**********Starting foggle game**********");
 
         String clientInput;
         String check;
         try {
-            while (mainGame.run) {
-                if(mainGame.run){
+            while (!player.connection.isClosed()) {
+
                     server.sendMessage(currentBoggle, player);
                     clientInput = server.readMessage(player);
                     check = checkWord(currentBoggle, clientInput, player, generousBoggle);
@@ -42,7 +46,7 @@ public class FoggleBoggle extends StandardBoggle {
                     } else {
                         server.sendMessage("Word does not exist", player);
                     }
-                }
+                
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
