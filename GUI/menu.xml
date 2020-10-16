@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><menu>
     <boardSize>5x5</boardSize>
     <language>english</language>
-    <generousBoggle>true</generousBoggle>
+    <generousBoggle>false</generousBoggle>
     <numberOfPlayers>2</numberOfPlayers>
     <showSolution>false</showSolution>
     <gameTime>30</gameTime>
