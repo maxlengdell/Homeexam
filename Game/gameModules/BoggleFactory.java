@@ -1,12 +1,12 @@
-package Homeexam.gameModules;
+package Homeexam.Game.gameModules;
 
 //import org.graalvm.compiler.lir.BailoutAndRestartBackendException;
 
-import Homeexam.gameModules.*;
-import Homeexam.networking.Server;
+import Homeexam.Game.networking.Server;
 
 
 public class BoggleFactory {
+    /*
     private String boardSize;
     private Server server;
     private Boolean generousBoggle;
@@ -14,7 +14,7 @@ public class BoggleFactory {
         // this.boardSize = boardSize;
         // this.server = server;
         // this.generousBoggle = generousBoggle;
-    }
+    }*/
 
     public IBoggleVariant getGame(String gameMode, String boardSize, Server server, Boolean generousBoggle ){
         if(gameMode.equals("Standard")){

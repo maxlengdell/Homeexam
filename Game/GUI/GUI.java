@@ -1,7 +1,4 @@
-package Homeexam.GUI;
-
-import Homeexam.*;
-import Homeexam.Main.mainGame;
+package Homeexam.Game.GUI;
 
 import java.io.File;
 import java.util.Scanner;
@@ -9,7 +6,6 @@ import java.util.Scanner;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -28,7 +24,7 @@ public class GUI {
     private static boolean showSolution;
     private static int numberOfPlayers;
     private static int gameTime;
-    private String filepath = "Homeexam/GUI/menu.xml";
+    private String filepath = "Homeexam/Game/GUI/menu.xml";
 
     String menuMsg = ("**************************************\n" + "*      Welcome to VarietyBoggle      *\n"
             + "**************************************\n" + "* Menu:                              *\n"
@@ -138,9 +134,9 @@ public class GUI {
             settingChoice.toLowerCase();
             System.out.println(settingChoice);
 
-            if (settingChoice.equals("4x4") | settingChoice.equals("5x5"))
+            if (settingChoice.equals("4x4") || settingChoice.equals("5x5"))
                 writeToXML(doc, "boardSize", settingChoice);
-            else if (settingChoice.equals("english") | settingChoice.equals("spanish"))
+            else if (settingChoice.equals("english") || settingChoice.equals("spanish"))
                 writeToXML(doc, "language", settingChoice);
             else if (settingChoice.equals("generousboggle"))
                 writeToXML(doc, "generousBoggle", String.valueOf(!generousBoggle));

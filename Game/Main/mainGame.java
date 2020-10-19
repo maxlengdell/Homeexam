@@ -1,13 +1,13 @@
-package Homeexam.Main;
+package Homeexam.Game.Main;
 
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-import Homeexam.GUI.GUI;
-import Homeexam.Player.*;
-import Homeexam.gameModules.*;
-import Homeexam.networking.Server;
+import Homeexam.Game.GUI.GUI;
+import Homeexam.Game.Player.*;
+import Homeexam.Game.gameModules.*;
+import Homeexam.Game.networking.Server;
 
 public class mainGame {
 
@@ -54,6 +54,7 @@ public class mainGame {
         int gameTime = gui.getGameTime();
         int numberOfPlayers = gui.getNumberOfPlayers();
         System.out.println(mode);
+        
         createServer(numberOfPlayers);
         IBoggleVariant game = factory.getGame(mode, boardSize, server, generousBoggle);
         ExecutorService threadpool = Executors.newFixedThreadPool(server.players.size());
@@ -101,7 +102,7 @@ public class mainGame {
         ArrayList<String> dict = new ArrayList<String>();
 
         try {
-            FileReader fileReader = new FileReader("Homeexam/Dictionary.txt");
+            FileReader fileReader = new FileReader("Homeexam/Game/Dictionary.txt");
             System.out.println("reading");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = null;

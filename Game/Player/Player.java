@@ -1,13 +1,13 @@
-package Homeexam.Player;
+package Homeexam.Game.Player;
 
-import Homeexam.Main.mainGame;
-import Homeexam.networking.*;
+import Homeexam.Game.Main.mainGame;
+import Homeexam.Game.networking.*;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Player {
+public class Player implements IPlayerInterface{
     public int playerID;
     public boolean online;
     public Socket connection;
@@ -30,10 +30,10 @@ public class Player {
 
     }
 
-    public void close() {
-        // TODO Auto-generated method stub
+    // public void close() {
+    //     // TODO Auto-generated method stub
 
-    }
+    // }
 
     public int calculateScore() {
         score = 0;

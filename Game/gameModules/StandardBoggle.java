@@ -1,9 +1,9 @@
-package Homeexam.gameModules;
+package Homeexam.Game.gameModules;
 
-import Homeexam.networking.*;
-import Homeexam.Main.mainGame;
-import Homeexam.Player.*;
-import Homeexam.gameModules.*;
+import Homeexam.Game.networking.*;
+import Homeexam.Game.Main.mainGame;
+import Homeexam.Game.Player.*;
+import Homeexam.Game.gameModules.*;
 import java.io.*;
 import java.util.*;
 import javax.script.*;

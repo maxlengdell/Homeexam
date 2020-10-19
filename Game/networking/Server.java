@@ -1,6 +1,6 @@
-package Homeexam.networking;
+package Homeexam.Game.networking;
 
-import Homeexam.Player.*;
+import Homeexam.Game.Player.*;
 
 import java.io.*;
 import java.net.*;
@@ -67,7 +67,6 @@ public class Server {
             System.out.println("Send message: " + message + " and error: " + e);
             player.connection.close();
         }
-
     }
 
     public String readMessage(Player player) throws IOException {

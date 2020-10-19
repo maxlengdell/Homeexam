@@ -1,9 +1,8 @@
-package Homeexam.gameModules;
+package Homeexam.Game.gameModules;
 
-import Homeexam.networking.*;
-import Homeexam.gameModules.*;
-import Homeexam.*;
-import Homeexam.Player.*;
+import Homeexam.Game.networking.*;
+import Homeexam.Game.gameModules.*;
+import Homeexam.Game.Player.*;
 public interface IBoggleVariant {
 
     public String[][] boggle16 = { { "R", "I", "F", "O", "B", "X" }, { "I", "F", "E", "H", "E", "Y" },

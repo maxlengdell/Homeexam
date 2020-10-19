@@ -1,12 +1,9 @@
-package Homeexam.gameModules;
+package Homeexam.Game.gameModules;
 
-import Homeexam.networking.*;
-import Homeexam.Main.mainGame;
-import Homeexam.Player.*;
-import Homeexam.gameModules.*;
+import Homeexam.Game.networking.*;
+import Homeexam.Game.Player.*;
 import java.io.*;
 import java.util.*;
-import javax.script.*;
 
 public class BattleBoggle extends StandardBoggle{
     private Server server;
@@ -36,7 +33,7 @@ public class BattleBoggle extends StandardBoggle{
                     clientInput = server.readMessage(player);
                     check = checkWord(currentBoggle, clientInput, player, generousBoggle);
                     System.out.println("Check output: " + check);
-                    if (checkContainBattleWord(clientInput) & check == "OK") {
+                    if (checkContainBattleWord(clientInput) && check.equals("OK")) {
                         // Calculate score
                         server.sendMessage("Word ok", player);
                         player.writtenWords.add(clientInput);

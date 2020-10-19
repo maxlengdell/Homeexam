@@ -1,12 +1,11 @@
-package Homeexam.gameModules;
+package Homeexam.Game.gameModules;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import Homeexam.Main.mainGame;
-import Homeexam.Player.Player;
-import Homeexam.networking.Server;
+import Homeexam.Game.Player.Player;
+import Homeexam.Game.networking.Server;
 
 public class FoggleBoggle extends StandardBoggle {
     private Server server;

@@ -1,4 +1,4 @@
-package Homeexam.networking;
+package Homeexam.Game.networking;
 
 import java.io.*;
 import java.net.*;
