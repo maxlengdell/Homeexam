@@ -1,4 +1,4 @@
-package Homeexam.language;
+package Homeexam.language.english;
 
 public interface IEnglish {
     public String[][] boggle16 = { { "R", "I", "F", "O", "B", "X" }, { "I", "F", "E", "H", "E", "Y" },

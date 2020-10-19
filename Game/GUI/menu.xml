@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><menu>
-    <boardSize>4x4</boardSize>
+    <boardSize>5x5</boardSize>
     <language>english</language>
     <generousBoggle>true</generousBoggle>
     <numberOfPlayers>2</numberOfPlayers>
     <showSolution>false</showSolution>
-    <gameTime>2</gameTime>
+    <gameTime>15</gameTime>
 </menu>

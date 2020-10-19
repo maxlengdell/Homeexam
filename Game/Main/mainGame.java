@@ -55,13 +55,8 @@ public class mainGame {
         String boardSize = gui.getBoardSize();
         int gameTime = gui.getGameTime();
         int numberOfPlayers = gui.getNumberOfPlayers();
-<<<<<<< Updated upstream:Game/Main/mainGame.java
         System.out.println(mode);
         
-=======
-
-
->>>>>>> Stashed changes:Main/mainGame.java
         createServer(numberOfPlayers);
 
         IBoggleVariant game = factory.getGame(mode, boardSize, server, generousBoggle, showSolution);
