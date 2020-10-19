@@ -4,5 +4,5 @@
     <generousBoggle>true</generousBoggle>
     <numberOfPlayers>2</numberOfPlayers>
     <showSolution>false</showSolution>
-    <gameTime>200</gameTime>
+    <gameTime>2</gameTime>
 </menu>

@@ -12,11 +12,13 @@ public class FoggleBoggle extends StandardBoggle {
     public ArrayList<String> totalWrittenWords = new ArrayList<String>();
     private Boolean generousBoggle;
     private static boolean foundInBoggleBoard;
+    private static boolean showSolution;
     
-    public FoggleBoggle(String boardsize, Server server, Boolean generousBoggle) {
-        super(boardsize, server, generousBoggle);
+    public FoggleBoggle(String boardsize, Server server, Boolean generousBoggle, Boolean showSolution) {
+        super(boardsize, server, generousBoggle, showSolution);
         this.server = server;
         this.generousBoggle = generousBoggle;
+        this.showSolution = showSolution;
         // Creates a grid in the constructor depending on the size.
         if (boardsize.equalsIgnoreCase("4x4"))
             currentBoggle = randomBoggle(foggle16);
@@ -91,5 +93,10 @@ public class FoggleBoggle extends StandardBoggle {
             return null;
         }
         
+    }
+    @Override
+    public void showSolution(ArrayList<String> dictionary){
+        //Number variants should not display solutions. 
+        System.out.println("Show solution not supported");
     }
 }

@@ -10,19 +10,22 @@ public class BoggleFactory {
     private String boardSize;
     private Server server;
     private Boolean generousBoggle;
+<<<<<<< Updated upstream:Game/gameModules/BoggleFactory.java
     public BoggleFactory(){//String boardSize, Server server, Boolean generousBoggle){
         // this.boardSize = boardSize;
         // this.server = server;
         // this.generousBoggle = generousBoggle;
     }*/
+=======
+>>>>>>> Stashed changes:gameModules/BoggleFactory.java
 
-    public IBoggleVariant getGame(String gameMode, String boardSize, Server server, Boolean generousBoggle ){
+    public IBoggleVariant getGame(String gameMode, String boardSize, Server server, Boolean generousBoggle, Boolean showSolution){
         if(gameMode.equals("Standard")){
-            return new StandardBoggle(boardSize, server, generousBoggle); //Generous boggle??
+            return new StandardBoggle(boardSize, server, generousBoggle, showSolution); //Generous boggle??
         }else if(gameMode.equals("Battle")){
-            return new BattleBoggle(boardSize, server, generousBoggle);
+            return new BattleBoggle(boardSize, server, generousBoggle, showSolution);
         }else{
-            return new FoggleBoggle(boardSize, server, generousBoggle); //Generous boggle??
+            return new FoggleBoggle(boardSize, server, generousBoggle, showSolution); //Generous boggle??
         }
     }
     /*

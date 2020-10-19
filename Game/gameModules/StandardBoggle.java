@@ -23,10 +23,12 @@ public class StandardBoggle implements IBoggleVariant {
     private static int N;
     private Boolean generousBoggle;
     private static boolean foundInBoggleBoard;
+    private Boolean showSolution;
 
-    public StandardBoggle(String boardsize, Server server, Boolean generousBoggle) {
+    public StandardBoggle(String boardsize, Server server, Boolean generousBoggle, Boolean showSolution) {
         this.server = server;
         this.generousBoggle = generousBoggle;
+        this.showSolution = showSolution;
         // Creates a grid in the constructor depending on the size.
         if (boardsize.equalsIgnoreCase("4x4"))
             currentBoggle = randomBoggle(boggle16);
@@ -43,10 +45,8 @@ public class StandardBoggle implements IBoggleVariant {
             while (!player.connection.isClosed()) {
                 server.sendMessage(currentBoggle, player);
                 clientInput = server.readMessage(player);
-                System.out.println("Client input: " + clientInput);
                 if (clientInput != "") {
                     check = checkWord(currentBoggle, clientInput, player, generousBoggle);
-                    System.out.println("Check output: " + check);
                     if (check == "OK") {
                         // Calculate score
                         server.sendMessage("Word ok", player);
@@ -63,7 +63,27 @@ public class StandardBoggle implements IBoggleVariant {
         }
     }
 
+    public void showSolution(ArrayList<String> dictionary) {
+        for (String word : dictionary) {
+            // System.out.println("Current word: " + word);
+            if (checkWord(currentBoggle, word, null, generousBoggle).equals("OK")) {
+                for (Player player : server.players) {
+                    try {
+                        server.sendMessage(word, player);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                //System.out.println(word);
+            }
+            
+        }
+
+
+    }
     protected boolean checkWordinDict(String word) {
+        
         if (mainGame.dictionary.contains(word))
             return true;
         else
@@ -71,7 +91,10 @@ public class StandardBoggle implements IBoggleVariant {
     }
 
     protected boolean checkWordExistInWritten(String word, Player player) {
-        if (player.writtenWords.contains(word)) {
+        if(player == null) {
+            return false;
+        }
+        else if (player.writtenWords.contains(word)) {
             return true;
         } else
             return false;

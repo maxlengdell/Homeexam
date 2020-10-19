@@ -8,12 +8,14 @@ import java.util.*;
 public class BattleBoggle extends StandardBoggle{
     private Server server;
     private Boolean generousBoggle;
+    private Boolean showSolution;
     public ArrayList<String> totalWrittenWords = new ArrayList<String>();
     
-    public BattleBoggle(String boardsize, Server server, Boolean generousBoggle) {
-        super(boardsize, server, generousBoggle);
+    public BattleBoggle(String boardsize, Server server, Boolean generousBoggle, Boolean showSolution) {
+        super(boardsize, server, generousBoggle, showSolution);
         this.generousBoggle = generousBoggle;
         this.server = server;
+        this.showSolution = showSolution;
         if (boardsize.equalsIgnoreCase("4x4"))
             currentBoggle = randomBoggle(boggle16);
         if (boardsize.equalsIgnoreCase("5x5"))
@@ -66,6 +68,11 @@ public class BattleBoggle extends StandardBoggle{
 
         if(totalWrittenWords.contains(word)) return true;
         else return false;
+    }
+    @Override
+    public void showSolution(ArrayList<String> dictionary){
+        // TODO Auto-generated method stub
+        super.showSolution(dictionary);
     }
 
 }

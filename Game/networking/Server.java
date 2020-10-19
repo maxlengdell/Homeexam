@@ -64,7 +64,7 @@ public class Server {
             player.outToClient.writeObject(message);
             player.outToClient.flush();
         } catch (Exception e) {
-            System.out.println("Send message: " + message + " and error: " + e);
+            //System.out.println("Send message: " + message + " and error: " + e);
             player.connection.close();
         }
     }

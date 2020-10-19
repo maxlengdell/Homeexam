@@ -155,7 +155,8 @@ public class GUI {
                 writeToXML(doc, "numberOfPlayers", String.valueOf(number));
             }
         }
-        if(selectedMode==null){
+        if(playmode.equals("!"));
+        else if(selectedMode==null){
             System.out.println("Gamemode not selected");
             Menu();
         }

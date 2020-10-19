@@ -47,16 +47,25 @@ public class mainGame {
     }
     public static void gameLoop() throws IOException, InterruptedException {
         gui.Menu();
+
         BoggleFactory factory = new BoggleFactory();
         String mode = gui.getSelectedMode();
         Boolean generousBoggle = gui.getGenetousBoggle();
+        Boolean showSolution = gui.getShowSolition();
         String boardSize = gui.getBoardSize();
         int gameTime = gui.getGameTime();
         int numberOfPlayers = gui.getNumberOfPlayers();
+<<<<<<< Updated upstream:Game/Main/mainGame.java
         System.out.println(mode);
         
+=======
+
+
+>>>>>>> Stashed changes:Main/mainGame.java
         createServer(numberOfPlayers);
-        IBoggleVariant game = factory.getGame(mode, boardSize, server, generousBoggle);
+
+        IBoggleVariant game = factory.getGame(mode, boardSize, server, generousBoggle, showSolution);
+
         ExecutorService threadpool = Executors.newFixedThreadPool(server.players.size());
         for (int i = 0; i < server.numberOfPlayers; i++) {
             Player player = server.players.get(i);
@@ -69,7 +78,9 @@ public class mainGame {
             threadpool.execute(task);
         }
         threadpool.awaitTermination(gameTime, TimeUnit.SECONDS);
+        if(showSolution)game.showSolution(dictionary);
         threadpool.shutdownNow();
+
         sendGameOver();
         calculateScoreHelper();
         server.disconnect();
